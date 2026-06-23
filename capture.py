@@ -4,11 +4,16 @@ import os
 from datetime import datetime
 
 
-def capture(target_index = 0, save_dir ="media", time_interval=30):
-    os.makedirs(save_dir, exist_ok=True)
+def capture(target_index = 0, init_save ="media", time_interval=30):
 
     cap = cv2.VideoCapture(target_index, cv2.CAP_DSHOW)
     img_count = 0
+    
+    current_date = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    
+    save_dir = os.path.join(init_save, current_date)
+    os.makedirs(save_dir, exist_ok=True)
+    
     if not cap.isOpened():
         print("Could not initialize the USB hardware.")
     else:
@@ -43,4 +48,4 @@ def capture(target_index = 0, save_dir ="media", time_interval=30):
         print("Camera feed closed safely.")
 
 if __name__ == "__main__":
-    capture(1, "media", 300) #once per 5 minutes
+    capture(0, "media", 300) #once per 5 minutes
