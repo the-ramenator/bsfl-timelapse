@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 
 
-def capture(target_index, save_dir):
+def capture(target_index = 0, save_dir ="media", time_interval=30):
     os.makedirs(save_dir, exist_ok=True)
 
     cap = cv2.VideoCapture(target_index, cv2.CAP_DSHOW)
@@ -34,7 +34,7 @@ def capture(target_index, save_dir):
                 # if cv2.waitKey(1) & 0xFF == ord('q'):
                 #     break
             
-                time.sleep(1)
+                time.sleep(time_interval)
         except KeyboardInterrupt:
             print("Stopped")
 
@@ -43,4 +43,4 @@ def capture(target_index, save_dir):
         print("Camera feed closed safely.")
 
 if __name__ == "__main__":
-    capture(1, "media")
+    capture(1, "media", 300) #once per 5 minutes
